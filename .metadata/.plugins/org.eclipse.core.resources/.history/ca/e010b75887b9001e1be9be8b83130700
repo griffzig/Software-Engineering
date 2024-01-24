@@ -1,0 +1,111 @@
+package lab1out;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class ClientGUI extends JFrame {
+
+	private JLabel statusText;
+	private JLabel status;
+	private JButton connect;
+	private JButton submit;
+	private JButton stop;
+	private String[] labels = {"Client ID", "Server URL", "Server Port"};
+	private JTextField[] textFields = new JTextField[labels.length];
+	private JLabel clientAreaLabel;
+	private JLabel serverAreaLabel;
+	private JTextArea clientArea;
+	private JTextArea serverArea;
+
+	public final static String CONNECT = "ClientGUI.CONNECT";
+	public final static String SUBMIT = "ClientGUI.SUBMIT";
+	public final static String STOP = "ClientGUI.STOP";
+	  
+	  public ClientGUI(String title)
+	  {
+		this.setTitle(title);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+  
+		// North JPanel
+		status = new JLabel("Status: ", JLabel.LEFT);
+		statusText = new JLabel("Not Connected", JLabel.LEFT);
+		statusText.setForeground(Color.RED);
+		JPanel north = new JPanel();
+		north.add(status);
+		north.add(statusText);
+		
+		JPanel outer = new JPanel(new FlowLayout());
+		// Center JPanel
+		JPanel center = new JPanel (new GridLayout(labels.length, 2, 10, 10));
+	    for (int i = 0; i < labels.length; i++) {
+	    	
+	    	JLabel label = new JLabel(labels[i]);
+	    	center.add(label);
+	    	
+	    	JTextField textField = new JTextField();
+	    	
+	    	// Make "Client ID" non-editable
+	    	if (labels[i].equals("Client ID")) {
+	    		textField.setEditable(false);
+	    	}
+	    	
+	    	center.add(textField);
+	    	
+	    	textFields[i] = textField;
+	    }
+	    
+	    JPanel outer2 = new JPanel(new FlowLayout());
+	    JPanel center2 = new JPanel(new GridLayout(1, 2, 10, 10));
+	    // Text Areas
+	    clientAreaLabel = new JLabel("Enter Client Data Below", JLabel.CENTER);
+	    clientArea = new JTextArea(5, 20);
+	    JScrollPane sp1 = new JScrollPane(clientArea);
+	    center2.add(clientAreaLabel);
+	    center2.add(clientArea);
+	    serverAreaLabel = new JLabel("Enter Server Data Below", JLabel.CENTER);
+	    serverArea = new JTextArea(5, 20);
+	    JScrollPane sp2 = new JScrollPane(serverArea);
+	    center2.add(serverAreaLabel);
+	    center2.add(serverArea);
+	    
+	    
+	    // Event Handling
+	    EventHandler eventHandler = new EventHandler(statusText);
+	    
+	    // JButtons for connect, submit, stop on Client
+	    JButton connect = new JButton("Connect");
+	    connect.setActionCommand(ClientGUI.CONNECT);
+	    connect.addActionListener(eventHandler);
+	    
+	    JButton submit = new JButton("Submit");
+	    submit.setActionCommand(ClientGUI.SUBMIT);
+	    submit.addActionListener(eventHandler);
+	    
+	    JButton stop = new JButton("Stop");
+	    stop.setActionCommand(ClientGUI.STOP);
+	    stop.addActionListener(eventHandler);
+	    
+	    JPanel south = new JPanel();
+	    south.add(connect);
+	    south.add(submit);
+	    south.add(stop);
+	    
+	    outer2.add(center2);
+	    outer.add(center);
+	    this.add(north, BorderLayout.NORTH);
+	    this.add(outer, BorderLayout.CENTER);
+	    this.add(center2, BorderLayout.CENTER);
+	    this.add(south, BorderLayout.SOUTH);
+	    
+	    this.setSize(600, 700);
+	    this.setVisible(true);
+	    	    
+	    
+	  }
+	  
+	  public static void main(String[] args) {
+		  
+	    	ClientGUI client = new ClientGUI("Client 1"); //args[0] represents the title of the GUI
+	  }
+
+}

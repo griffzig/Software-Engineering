@@ -1,0 +1,90 @@
+package lab1out;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class ClientGUI extends JFrame {
+
+	private JLabel statusText;
+	private JLabel status;
+	private JButton connect;
+	private JButton submit;
+	private JButton stop;
+	private String[] labels = {"Client ID", "Server URL", "Server Port"};
+	private JTextField[] textFields = new JTextField[labels.length];
+	private JTextArea clientArea;
+	private JTextArea serverArea;
+
+	public final static String CONNECT = "ClientGUI.CONNECT";
+	public final static String SUBMIT = "ClientGUI.SUBMIT";
+	public final static String STOP = "ClientGUI.STOP";
+	  
+	  public ClientGUI(String title)
+	  {
+		this.setTitle(title);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+  
+		// North JPanel
+		status = new JLabel("Status: ", JLabel.LEFT);
+		statusText = new JLabel("Not Connected", JLabel.LEFT);
+		statusText.setForeground(Color.RED);
+		JPanel north = new JPanel();
+		north.add(status);
+		north.add(statusText);
+		
+		JPanel outer = new JPanel(new FlowLayout());
+		
+		// Center JPanel
+		JPanel center = new JPanel (new GridLayout(labels.length, 1, 10, 10));
+	    for (int i = 0; i < labels.length - 2; i++) {
+	    	
+	    	JLabel label = new JLabel(labels[i]);
+	    	center.add(label);
+	    	
+	    	JTextField textField = new JTextField();
+	    	
+	    	if (labels[i].equals("Client ID")) {
+	    		textField.setEditable(false);
+	    	}
+	    	center.add(textField);
+	    	
+	    	textFields[i] = textField;
+	    }
+	    
+	    EventHandler eventHandler = new EventHandler(statusText);
+	    
+	    // JButtons for connect, submit, stop on Client
+	    JButton connect = new JButton("Connect");
+	    connect.setActionCommand(ClientGUI.CONNECT);
+	    connect.addActionListener(eventHandler);
+	    
+	    JButton submit = new JButton("Submit");
+	    submit.setActionCommand(ClientGUI.SUBMIT);
+	    submit.addActionListener(eventHandler);
+	    
+	    JButton stop = new JButton("Stop");
+	    stop.setActionCommand(ClientGUI.STOP);
+	    stop.addActionListener(eventHandler);
+	    
+	    JPanel south = new JPanel();
+	    south.add(connect);
+	    south.add(submit);
+	    south.add(stop);
+	    
+	    outer.add(center);
+	    this.add(north, BorderLayout.NORTH);
+	    this.add(outer, BorderLayout.CENTER);
+	    this.add(south, BorderLayout.SOUTH);
+	    
+	    this.setSize(400, 500);
+	    this.setVisible(true);
+	    	    
+	    
+	  }
+	  
+	  public static void main(String[] args) {
+		  
+	    	ClientGUI client = new ClientGUI("Client 1"); //args[0] represents the title of the GUI
+	  }
+
+}

@@ -1,0 +1,6 @@
+INDEX VERSION 1.134+C:\Users\lzigd\OneDrive\Desktop\School\Spring 2024\Software Engineering\SE\.metadata\.plugins\org.eclipse.jdt.core
+1243088308.index
+228266633.index
+2515252918.index
+1865797976.index
+351660892.index
