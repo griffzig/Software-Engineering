@@ -1,0 +1,13 @@
+package lab3out;
+
+import ocsf.client.AbstractClient;
+
+public class TestChatClient extends AbstractClient {
+
+	@Override
+	protected void handleMessageFromServer(Object arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,51 @@
+package lab2out;
+
+import javax.swing.*;
+import ocsf.server.*;
+
+public class ChatServer extends AbstractServer {
+
+	private JTextArea log; // = JTextArea of ServerGUI
+	private JLabel status; // = JLabel of ServerGUI
+	
+	
+	public ChatServer() {
+		
+		super(12345);
+	}
+	
+	// Setter for JTextArea 
+	public void setLog(JTextArea log) {
+		
+	}
+	
+	// Setter for JLabel status area
+	public void setStaus(JLabel status) {
+		
+	}
+	
+	public void handleMessageFromClient(Object arg0, ConnectionToClient arg1) {
+		
+		System.out.println("Message from Client Received");
+	}
+	
+	public void listeningException(Throwable exception) {
+		
+	}
+	
+	public void serverStarted() {
+		
+	}
+	
+	public void serverStopped() {
+		
+	}
+	
+	public void serverClosed() {
+		
+	}
+	
+	public void clientConnected(ConnectionToClient client) {
+		
+	}
+}

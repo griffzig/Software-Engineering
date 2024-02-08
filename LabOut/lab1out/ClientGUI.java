@@ -22,62 +22,68 @@ public class ClientGUI extends JFrame
   // Constructor for the client GUI.
 	public ClientGUI(String title) {
 		
-		// Create the main variables that will be used.
-		JPanel north = new JPanel(new BorderLayout());
-		JPanel center = new JPanel(new FlowLayout());
-		JPanel south = new JPanel();
-		EventHandler handler = new EventHandler();
-
-    
-	    // Set the title and default close operation.
+		 // Set the title and default close operation.
 	    this.setTitle(title);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    
-	    // north panel
-	    // Create the status label.
+		// Create the main variables that will be used.
+		JPanel north = new JPanel(new BorderLayout());
+		JPanel center = new JPanel(new BorderLayout());
+		JPanel south = new JPanel();
+		EventHandler handler = new EventHandler();
+	    
+	    // North Container
+	    // Create the status label
+		JPanel outerNorth = new JPanel(new FlowLayout());
 	    JPanel statusPanel = new JPanel();
 	    JLabel statusText = new JLabel("Status:");	   
+	    statusPanel.add(statusText);
 	    status = new JLabel("Not Connected");
 	    status.setForeground(Color.RED);
-	    statusPanel.add(statusText);
 	    statusPanel.add(status);
 	    north.add(statusPanel, BorderLayout.NORTH);
-	   
-	    // Create Grid
-	    JPanel labelPanel = new JPanel(new GridLayout(labels.length, 1, 10, 10));
-	  	for (int i = 0; i < labels.length; i++) {
-	  			
-	  		JLabel label = new JLabel(labels[i]);
-	  		textFields[i] = new JTextField();
-	  		
-	  		labelPanel.add(label);
-	  		labelPanel.add(textFields[i]);
-	  	}
-	  	north.add(labelPanel, BorderLayout.CENTER);
-	  	
-	  	// Center 
-	  	JPanel dataPanel = new JPanel(new GridLayout(4, 1, 10, 10));
-	  	clientLabel = new JLabel("Enter Client Data Below");
-	  	serverLabel = new JLabel("Received Server Data");
-	  	
-	  	clientArea = new JTextArea();
-	  	serverArea = new JTextArea();
-	  	JScrollPane clientScrollPane = new JScrollPane(clientArea);
-	  	clientScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        clientScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        JScrollPane serverScrollPane = new JScrollPane(serverArea);
-        serverScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        serverScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-	  	
-	  	dataPanel.add(clientLabel);
-	  	dataPanel.add(clientArea);
-	  	dataPanel.add(serverLabel);
-	  	dataPanel.add(serverArea);
-	  	center.add(dataPanel);
-	  	
-	
 	    
-	    // Create the buttons.
+	    // North Grid
+	    JPanel centerNorth = new JPanel(new GridLayout(labels.length, 1, 10, 10));
+	    for (int i = 0; i < labels.length; i++) {
+	    	
+	    	JLabel label = new JLabel(labels[i]);
+	    	centerNorth.add(label);
+	    	
+	    	JTextField textField = new JTextField();
+	    	
+	    	if (labels[i].equals("Client ID")) {
+	    		textField.setEditable(false);
+	    	}
+	    	
+	    	centerNorth.add(textField);
+	    	
+	    	textFields[i] = textField;
+	    }
+	    outerNorth.add(centerNorth);
+	    north.add(outerNorth, BorderLayout.CENTER);
+	    
+	    // Center Container
+	    // Center Grid
+	    JPanel centerCenter = new JPanel(new GridLayout(4, 1, 1, 1));
+	    clientLabel = new JLabel("Enter Client Data Below");
+	    centerCenter.add(clientLabel);
+	    clientArea = new JTextArea(4, 20);
+	    JScrollPane clientScrollPane = new JScrollPane(clientArea);
+	    centerCenter.add(clientScrollPane);
+	    serverLabel = new JLabel("Received Server Data");
+	    centerCenter.add(serverLabel);
+	    serverArea = new JTextArea(4, 20);
+	    serverArea.setEditable(false);
+	    JScrollPane serverScrollPane = new JScrollPane(serverArea);
+	    centerCenter.add(serverScrollPane);
+	    
+	    JPanel outerCenter = new JPanel(new FlowLayout());
+	    outerCenter.add(centerCenter);
+	    center.add(outerCenter, BorderLayout.CENTER);
+	    
+	    // South Container
+	    // Create buttons
 	    connect = new JButton("Connect");
 	    connect.addActionListener(handler);
 	    south.add(connect);
@@ -88,13 +94,13 @@ public class ClientGUI extends JFrame
 	    stop.addActionListener(handler);
 	    south.add(stop);
 	    
-	    // Add the north and south JPanels to the JFrame.
+	    // Add the north, south, and center JPanels to the JFrame
 	    this.add(north, BorderLayout.NORTH);
 	    this.add(center, BorderLayout.CENTER);
 	    this.add(south, BorderLayout.SOUTH);
 	    
-	    // Display the window.
-	    this.setSize(450, 450);
+	    // Display window
+	    this.setSize(500, 500);
 	    this.setVisible(true);
 	    
 		}
@@ -102,7 +108,7 @@ public class ClientGUI extends JFrame
 		// Main function for the client.
 		public static void main(String[] args) {
 			// Create a ClientGUI object with the first command-line argument as its title.
-			ClientGUI client = new ClientGUI("Client 1");
+			new ClientGUI(args[0]);
 		}
 	
 	// Class for handling events.
@@ -114,7 +120,8 @@ public class ClientGUI extends JFrame
 			if (buttonClicked == connect) {
 				System.out.println("Connect Button Pressed");
 			} else if (buttonClicked == submit) {
-				System.out.println("Submit Button Pressed");
+				String clientData = clientArea.getText();
+				System.out.println("Client Data: " + clientData);
 			} else if (buttonClicked == stop) {
 				System.out.println("Stop Button Pressed");
 			}

@@ -1,7 +1,0 @@
-package lab1out;
-
-import javax.swing.JFrame;
-
-public class ServerGUI extends JFrame {
-
-}

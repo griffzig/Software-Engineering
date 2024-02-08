@@ -1,0 +1,7 @@
+package lab3out;
+
+import ocsf.client.AbstractClient;
+
+public class ChatClient extends AbstractClient {
+
+}

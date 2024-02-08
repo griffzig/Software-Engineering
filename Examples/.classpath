@@ -6,5 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path=""/>
+	<classpathentry kind="lib" path="C:/Users/lzigd/OneDrive/Desktop/School/Spring 2024/Software Engineering/SE/Examples/ocsf.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
